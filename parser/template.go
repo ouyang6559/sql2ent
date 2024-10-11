@@ -36,7 +36,17 @@ func ({{ .TableName}}) Fields() []ent.Field {
 // Edges of the {{ .TableName }}.
 func ({{ .TableName}}) Edges() []ent.Edge {
 	return nil
-}`
+}
+
+// Annotations of the {{ .TableName }}.
+func ({{ .TableName }}) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.WithComments(true),
+		entsql.Annotation{Table: "{{ .TableOriginName }}"},
+	}
+}
+
+`
 
 func ParseTpl(sch *Schema) (string, error) {
 	tpl, err := template.New("tpl").Parse(TemplateSchema)

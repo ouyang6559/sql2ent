@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/miaogaolin/sql2ent/util"
@@ -22,7 +22,7 @@ func NewMysqlGenerator(dir string) *MysqlGenerator {
 }
 
 func (g *MysqlGenerator) FromFile(fileName string) error {
-	bytes, err := ioutil.ReadFile(fileName)
+	bytes, err := os.ReadFile(fileName)
 	if err != nil {
 		return err
 	}
@@ -44,7 +44,7 @@ func (g *MysqlGenerator) FromFile(fileName string) error {
 		if err != nil {
 			return err
 		}
-		tablesContent[sch.TableName] = schContent
+		tablesContent[sch.TableOriginName] = schContent
 	}
 
 	return g.createFile(tablesContent)
@@ -54,6 +54,7 @@ func (g *MysqlGenerator) FromFile(fileName string) error {
 func (g *MysqlGenerator) createFile(tablesContent map[string]string) error {
 	files := make(map[string]string)
 	for k, v := range tablesContent {
+		//name := strings.ToLower(k) + ".go"
 		name := strings.ToLower(k) + ".go"
 		files[name] = v
 	}

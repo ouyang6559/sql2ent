@@ -19,15 +19,16 @@
 ### 第一步：安装 `sql2ent`
 ```shell
 # Go 1.15 或更低版本
-go get -u github.com/miaogaolin/excel-proc
+go get -u github.com/ouyang6559/sql2ent
 
 # Go 1.16 或更高版本
-go install github.com/miaogaolin/excel-proc@latest
+go install github.com/ouyang6559/sql2ent@latest
 ```
 
 ### 第二步：运行命令
 ```shell
 sql2ent mysql ddl -src "./sql/*.sql" -dir "./ent/schema"
+sql2ent mysql ddl -src "laravel-single.sql" -dir "app/model/ent/schema"
 ```
 说明：
 * -src: 输入 sql 路径，可模糊匹配

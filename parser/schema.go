@@ -3,12 +3,12 @@ package parser
 import (
 	"errors"
 	"fmt"
+	"github.com/iancoleman/strcase"
 	"html/template"
 	"strings"
 
 	"github.com/tal-tech/go-zero/tools/goctl/model/sql/util"
 
-	"github.com/iancoleman/strcase"
 	"github.com/tal-tech/go-zero/core/collection"
 
 	"github.com/miaogaolin/sql2ent/converter"
@@ -19,10 +19,11 @@ import (
 
 type (
 	Schema struct {
-		TableName    string
-		Fields       []template.HTML
-		IsHaveFields bool
-		Imports      []string
+		TableName       string
+		TableOriginName string
+		Fields          []template.HTML
+		IsHaveFields    bool
+		Imports         []string
 	}
 
 	// Field describes a table field
@@ -46,7 +47,9 @@ func ParseSchema(e *parser.Table) (*Schema, error) {
 
 	imports := collection.NewSet()
 	sch := &Schema{
-		TableName: strcase.ToCamel(e.Name),
+		TableName:       strcase.ToCamel(e.Name),
+		TableOriginName: e.Name,
+		//TableName: e.Name,
 	}
 	fields, err := parserFields(e)
 	if err != nil {
