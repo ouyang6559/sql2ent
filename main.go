@@ -7,6 +7,8 @@ import (
 
 	"github.com/logrusorgru/aurora"
 	"github.com/urfave/cli"
+
+	"github.com/miaogaolin/sql2ent/command"
 )
 
 var (
@@ -30,7 +32,7 @@ var (
 							Usage: "the target dir",
 						},
 					},
-					Action: MysqlDDL,
+					Action: command.MysqlDDL,
 				},
 			},
 		},
